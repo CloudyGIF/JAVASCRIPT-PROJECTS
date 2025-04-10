@@ -1,4 +1,4 @@
-let activePlayer = 'X';
+let activePlayer = 'X'; //sets active player as X and selected squares as an empty array
 let selectedSquares = [];
 
 function placeXOrO(squareNumber) {
@@ -27,6 +27,9 @@ function placeXOrO(squareNumber) {
     return true;
 }
 
+//main function of the game. Firstly it checks that the square has not allready been used, then it gets the ID of the square and sets the image based on the active player
+//var. It then stores the selected square with the active player in the selected squares array and checks for win. Then it changes the active player, plays the audio
+//And lastly executes the computer turn func
 function checkWinConditions(){
     if(arrayIncludes('OX', '1X', '2X')){ drawWinLine(50,100,558,100)}
     else if (arrayIncludes('3X', '5X', '5X')){ drawWinLine(50,304,558,304)}
@@ -51,6 +54,9 @@ function checkWinConditions(){
   
 }
 
+//this win condition function checks for any possible combination of win coditions and if one is present, draws a line across the squares. If all squares on the board 
+//are used (lengh >=9) then it executes a tie scenario and resets the game. 
+
 function arrayIncludes(A,B,C){
     const a = selectedSquares.includes(A);
     const b = selectedSquares.includes(B);
@@ -60,15 +66,21 @@ function arrayIncludes(A,B,C){
     }
 }
 
+//this checks if the A B C are all present in selected squares array. 
+
 function disableClick(){
     body.style.pointerEvents = 'none';
     setTimeout(function(){ body.style.pointerEvents = 'auto';}, 1000);
 }
 
+//this disables the players ability to click anything for 1000 miliseconds 
+
 function audio(url){
     let audio = new Audio(url);
     audio.play();
 }
+
+//plays audio
 
 function computersTurn(){
     let success = false;
@@ -81,6 +93,8 @@ function computersTurn(){
         }
     }
 }
+
+//palces a "O" on a random square, the func checks for the first avaliable chosen at random
 
 function drawWinLine(cX1,cY1,cX2,cY2){
     const canvas = document.getElementById('win-lines');
@@ -129,6 +143,8 @@ function drawWinLine(cX1,cY1,cX2,cY2){
 
 }
 
+//Draws the line using the canvas html component and parameters. It then disables player's input, plays win audio and clears the board/resets the game in 1000 miliseconds. 
+
 function resetGame(){
     for (let i = 0;i < 9; i++){
         let square = document.getElementById(String(i));
@@ -137,3 +153,5 @@ function resetGame(){
 
     selectedSquares = [];
 }
+
+//resets the game by removing the background images and making the selectedSquares array empty again
